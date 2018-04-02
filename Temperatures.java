@@ -165,7 +165,7 @@ public class Temperatures {
 			int total = 0;
 			int cellCount = 0;
 			for(int row = 0; row < temps.length; row++) {
-				for (int col = 0; col < temps.length; col++) {
+				for (int col = 0; col < temps[row].length; col++) {
 					total += temps[row][col];
 					cellCount += 1;
 				}
