@@ -1,62 +1,57 @@
 package com.company;
-import java.util.Scanner;
 
 public class Users {
 
-    private static String avatarLink;
-    private static String userName;
-    private static String authorName;
-    private static String email;
+    private String avatarLink;
+    private String userName;
+    private String authorName;
+    private String email;
 
-    public Users(){}
 
-    public static void createUser(){
-        String avatarLink;
-        String userName;
-        String authorName;
-        String email;
-    }
-
-   public static void createUser(String avatarLink, String userName, String authorName, String email)
+    public Users(String avatarLink, String userName, String authorName, String email)
     {
+        this.avatarLink = avatarLink;
+        this.userName = userName;
+        this.authorName = authorName;
+        this.email = email;
     }
 
-    public static String getAvatarLink()
+    public String getAvatarLink()
     {
         return avatarLink;
     }
 
-    public static String getUserName()
+    public String getUserName()
     {
         return userName;
     }
 
-    public static String getAuthorName()
+    public String getAuthorName()
     {
         return authorName;
     }
 
-    public static String getEmail()
+    public String getEmail()
     {
         return email;
     }
 
-    public static void setAvatarLink(String newAvatarLink)
+    public void setAvatarLink(String newAvatarLink)
     {
         avatarLink = newAvatarLink;
     }
 
-    public static void setUserName(String newUserName)
+    public void setUserName(String newUserName)
     {
         userName = newUserName;
     }
 
-    public static void setAuthorName(String newAuthorName)
+    public void setAuthorName(String newAuthorName)
     {
         authorName = newAuthorName;
     }
 
-    public static void setEmail(String newEmail)
+    public void setEmail(String newEmail)
     {
         email = newEmail;
     }

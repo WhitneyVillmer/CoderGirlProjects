@@ -1,15 +1,16 @@
 package com.company;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Main {
 
-    static int postOrder;
     static int menuChoice;
-    static String selection;
     static Boolean runMenu;
 
 
-        public static void menu () {
+    public static void menu() {
+
+
         Scanner input = new Scanner(System.in);
         System.out.println("Main Menu");
         System.out.println("1) Create a New User");
@@ -21,71 +22,80 @@ public class Main {
         menuChoice = input.nextInt();
     }
 
-
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
 
+        ArrayList<Users> newUser = new ArrayList<>();
+        ArrayList<Post> newPost = new ArrayList<>();
 
-        ArrayList<String> newUser = new ArrayList<>();
-        ArrayList<String> newPost = new ArrayList<>();
+        Users currentUser = null;
+        String post;
+        int postOrder = 0;
 
-        int instanceCounter = 0;
-        instanceCounter++;
-        int numUsers = instanceCounter;
-
-        while(runMenu = true){
-
-        menu();
+        while (runMenu = true) {
+            if(currentUser != null)
+            {
+                System.out.println("You are currently " + currentUser.getUserName());
+            }
+            menu();
             switch (menuChoice) {
                 case 1:
-                    Users create = new Users();
-                    String avatarLink = create.getAvatarLink();
-                    System.out.println("What is the URL for your avatar? " + avatarLink);
-                    avatarLink = keyboard.nextLine();
-                    String userName = create.getUserName();
-                    System.out.println("What would you like your user name to be ? " + userName);
-                    userName = keyboard.nextLine();
-                    newUser.add(userName);
-                    String authorName = create.getAuthorName();
-                    System.out.println("What 2are your first and last name? " + authorName);
-                    authorName = keyboard.nextLine();
-                    String email = create.getEmail();
-                    System.out.println("What is your email address? " + email);
-                    email = keyboard.nextLine();
+                    System.out.println("What is the URL for your avatar? ");
+                    String avatarLink = keyboard.nextLine();
+                    System.out.println("What would you like your user name to be? ");
+                    String userName = keyboard.nextLine();
+                    System.out.println("What are your first and last name? ");
+                    String authorName = keyboard.nextLine();
+                    System.out.println("What is your email address? ");
+                    String email = keyboard.nextLine();
+                    Users create = new Users(avatarLink, userName, authorName, email);
+                    newUser.add(create);
+
                     break;
                 case 2:
-                    System.out.println("Under which of the following user name would you like to create posts? (Note: Case Sensitive) " + selection);
-                    System.out.println(newUser);
-                    selection = keyboard.nextLine();
-                    System.out.println("You are now posting as " + selection);
+                    if (newUser.isEmpty()) {
+                        System.out.println("There are no users to select from yet! Returning to main menu... ");
+                    } else {
+                        for(int i = 0; i < newUser.size(); i++)
+                        {
+                            System.out.println(i + 1 + ". " + newUser.get(i).getUserName());
+                        }
+                        System.out.println("Please select the number of the user you want to become.");
+                        currentUser = newUser.get(keyboard.nextInt()-1);
+                    }
                     break;
                 case 3:
-                    for (int i = 0; i < newPost.size(); i++) {
-                        System.out.println(newPost.get(newPost.size() - 1));
-                        postOrder = newPost.size() - 1;
+                    keyboard.nextLine();
+                    if(newPost.size() > 0) {
+                        String lastPost = "This is the first post.";
+                        for(int i = 0; i < newPost.size(); i++) {
+                            if (newPost.get(i).getUserName().equals(currentUser.getUserName())){
+                                lastPost = newPost.get(i).getContent();
+                            }
+                        }
+                        System.out.println(lastPost);
                     }
-                    System.out.println("User Name: " + selection);
-                    newPost.add(selection);
-                    Post createNewPost = new Post();
-                    String content = createNewPost.getContent();
-                    System.out.println("What's on your mind? " + content);
-                    content = keyboard.nextLine();
-                    newPost.add(content);
-                    String webAddress = createNewPost.getWebAddress();
-                    System.out.println("OPTIONAL: What is your web address? " + webAddress);
-                    webAddress = keyboard.nextLine();
-                    newPost.add(webAddress);
+                    System.out.println("Please enter the content of your post. ");
+                    post = keyboard.nextLine();
+                    newPost.add(new Post(currentUser.getUserName(), postOrder, post));
+                    postOrder++;
                     break;
                 case 4:
-                    System.out.println(newPost);
+                    for(int i = 0; i < newPost.size(); i++)
+                    {
+                        System.out.println(i + 1 + ". " + newPost.get(i)); //Multiplication Table //Method?
+                    }
                     break;
                 case 5:
-                    System.out.println(newUser);
+                    for(int i = 0; i < newUser.size(); i++)
+                    {
+                        System.out.println(i + 1 + ". " + newUser.get(i).getUserName());
+                    }
                     break;
                 default:
                     System.out.println("You must select an option, 1-5.");
-                    break;
+
             }
-            }
+        }
     }
 }
